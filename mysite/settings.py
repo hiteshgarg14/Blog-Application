@@ -30,6 +30,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# https://www.google.com/settings/security/lesssecureapps
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'garg95hitesh@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
 # Application definition
 
