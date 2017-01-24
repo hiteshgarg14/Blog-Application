@@ -3,10 +3,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
 from .models import Post, Comment
-from .forms import EmailPostForm, CommentForm
+from .forms import EmailPostForm, CommentForm, SearchForm
 from taggit.models import Tag
 from django.db.models import Count
-
+from haystack.query import SearchQuerySet
 
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
@@ -84,3 +84,18 @@ def post_share(request, post_id):
     else:
         form = EmailPostForm()
     return render(request, 'blog/post/share.html', {'post':post, 'form':form, 'sent':sent, 'cd':cd})
+
+
+def post_search(request):
+    form = SearchForm()
+    cd ={}
+    results = None
+    total_results = None
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            cd = form.cleaned_data
+            results = SearchQuerySet().models(Post).filter(content=cd['query']).load_all()
+            total_results = results.count()
+    return render(request, 'blog/post/search.html', {'form':form, 'cd':cd,
+                                                     'results':results, 'total_results':total_results})
