@@ -9,4 +9,4 @@
     * Custom template filters:- `Markdown`
     * Sitemap of website using `django.contrib.sites` and `django.contrib.sitemaps`
     * RSS Feed for blog posts using built-in `syndication feed framework`
-    *  **Search engine with [Solr](http://lucene.apache.org/solr/) and [Haystack](http://haystacksearch.org/)   
+    * Search engine with **[Solr]**(http://lucene.apache.org/solr/) and **[Haystack]**(http://haystacksearch.org/)   
